@@ -10,7 +10,8 @@
             <h1>Registration</h1>
         </div>
         <form class="form" name="login" action="${pageContext.request.contextPath}/Registration" method="post">
-            <input class="control-group" type="text" name="fullName"  value="" placeholder="Full Name" required>
+            <input class="control-group" type="text" name="firstName"  value="" placeholder="Full Name" required>
+            <input class="control-group" type="text" name="lastName"  value="" placeholder="Full Name" required>
             DOB:<br>
             <input class="control-group" type="date" name="DOB"  value="" placeholder="Date of Birth" required>
             <input id="autocomplete" placeholder="Enter your address" onFocus="geolocate()" type="text">

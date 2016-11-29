@@ -158,3 +158,32 @@ input:focus {
 .logoutBtn:hover {
     background-color: #2980B9;
 }
+
+/* Error message */
+.error {
+    padding: 20px;
+    color: #FF0000;
+    border: 3px solid #FD8F8F;
+    border-radius: 5px;
+}
+
+.errorMessageBtn {
+
+    color: #000000;
+    font-weight: bold;
+    float: right;
+    font-size: 25px;
+    line-height: 20px;
+    cursor: pointer;
+}
+
+.errorMessageBtn:hover {
+    color: #FF0000;
+}
+
+#autocomplete {
+    position: relative;
+    width: 250px;;
+    margin-bottom: 10px;
+}
+

@@ -87,7 +87,7 @@
             <tr>
                 <c:forEach items="${row}" var="column" varStatus="columnStatus">
                     <c:choose>
-                        <c:when test="${columnStatus.index eq 2}">
+                        <c:when test="${columnStatus.index eq 3}">
                             <td>£${column}</td>
                         </c:when>
                         <c:otherwise>

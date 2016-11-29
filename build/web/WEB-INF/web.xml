@@ -36,6 +36,10 @@
         <description>ServletContextListener</description>
         <listener-class>listeners.JDBCListener</listener-class>
     </listener>
+    <listener>
+        <description>ServletContextListener</description>
+        <listener-class>listeners.GetValidPages</listener-class>
+    </listener>
     <servlet>
         <servlet-name>Controller</servlet-name>
         <servlet-class>controller.Controller</servlet-class>

@@ -33,48 +33,37 @@ public class Registration extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         JDBCBean bean = (JDBCBean) getServletContext().getAttribute("JDBCBean");
-        String errorMessage = "";
 
-        String fullName = request.getParameter("fullName");
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        String name = firstName + " " + lastName;
         //generating username
-        char initial = fullName.charAt(0);
-        String[] names = fullName.split(" ");
-        //Check if full name is entered
-        if (names.length < 2) {
-            errorMessage = "<div class=\"error\">\n"
-                    + "  <span class=\"errorMessageBtn\" onclick=\"this.parentElement.style.display='none';\">&times;</span> \n"
-                    + "  <strong>Full Name Required!</strong> \n"
-                    + "</div>";
-            request.setAttribute("ErrorMessage", errorMessage);
-            RequestDispatcher view = request.getRequestDispatcher("/docs/Registration");
-            view.forward(request, response);
-        } else {
-            String username = (initial + "-" + names[1]).toLowerCase();
-            String streetNumber = request.getParameter("streetNumber");
-            String streetName = request.getParameter("streetName");
-            String city = request.getParameter("city");
-            String postcode = request.getParameter("postcode");
-            String country = request.getParameter("country");
+        String username = (firstName.charAt(0) + "-" + lastName).toLowerCase();
+        String streetNumber = request.getParameter("streetNumber");
+        String streetName = request.getParameter("streetName");
+        String city = request.getParameter("city");
+        String postcode = request.getParameter("postcode");
+        String country = request.getParameter("country");
 
-            String address = streetNumber + ", " + streetName + ", " + city + ", " + postcode + ", " + country;
-            String dob = request.getParameter("DOB");
-            //DOR to current date in YYYY-MM-DD format
-            SimpleDateFormat sqlDateFormatForRegistration = new SimpleDateFormat("yyyy-MM-dd");
-            String dor = sqlDateFormatForRegistration.format(Calendar.getInstance().getTime());
-            //password in DDMMYY format
-            String password = request.getParameter("DOB").replaceAll("(..)(..)-(..)-(..)", "$4$3$2");
-            float RegistrationFee = 10;
-            String defaultStatus = "APPLIED";
+        String address = streetNumber + ", " + streetName + ", " + city + ", " + postcode + ", " + country;
+        String dob = request.getParameter("DOB");
+        //DOR to current date in YYYY-MM-DD format
+        SimpleDateFormat sqlDateFormatForRegistration = new SimpleDateFormat("yyyy-MM-dd");
+        String dor = sqlDateFormatForRegistration.format(Calendar.getInstance().getTime());
+        //password in DDMMYY format
+        String password = request.getParameter("DOB").replaceAll("(..)(..)-(..)-(..)", "$4$3$2");
+        float RegistrationFee = 10;
+        String defaultStatus = "APPLIED";
 
-            bean.executeSQLUpdate("INSERT INTO `Members`(`id`, `name`, `address`, `dob`, `dor`, `status`, `balance`)"
-                    + "VALUES (" + "'" + username + "','" + fullName + "','" + address + "','" + dob + "','" + dor + "','" + defaultStatus + "'," + RegistrationFee + ")");
-            bean.executeSQLUpdate("INSERT INTO `users`(`id`, `password`, `status`)"
-                    + "VALUES (" + "'" + username + "','" + password + "','" + defaultStatus + "'" + ")");
+        bean.executeSQLUpdate("INSERT INTO `Members`(`id`, `name`, `address`, `dob`, `dor`, `status`, `balance`)"
+                + "VALUES (" + "'" + username + "','" + name + "','" + address + "','" + dob + "','" + dor + "','" + defaultStatus + "'," + RegistrationFee + ")");
+        bean.executeSQLUpdate("INSERT INTO `users`(`id`, `password`, `status`)"
+                + "VALUES (" + "'" + username + "','" + password + "','" + defaultStatus + "'" + ")");
 
-            request.setAttribute("registeredUsername", username);
-            request.setAttribute("registeredUsernamePassword", password);
-            request.getRequestDispatcher("/docs/RegistrationSuccessful").forward(request, response);
-        }
+        request.setAttribute("registeredUsername", username);
+        request.setAttribute("registeredUsernamePassword", password);
+        request.getRequestDispatcher("/docs/RegistrationSuccessful").forward(request, response);
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
